@@ -45,10 +45,32 @@ import "./Button.css";
  *   - Reference Button.css to see existing styles.
  */
 
-export function Button({children}) {
+export function Button({
+  children, 
+  variant = "fill",      
+  size = "medium",       
+  color = "primary",     
+  disabled = false,      
+  icon,                  
+  onClick
+}) {
+  // Build dynamic class names based on props
+  const classes = [
+    "button",
+    `variant-${variant}`,
+    `size-${size}`,
+    `color-${color}`,
+    disabled ? "disabled" : ""
+  ].filter(Boolean).join(" ");
+
   return (
-    <button>
-        {children}
+    <button 
+      className={classes} 
+      disabled={disabled} 
+      onClick={onClick}
+    >
+      {icon && <span className="icon">{icon}</span>}
+      {children}
     </button>
   );
 }
